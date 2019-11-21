@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CaWorkshop.WebUI.Models
+namespace CaWorkshop.Domain.Entities
 {
     public class TodoList
     {
@@ -12,8 +12,6 @@ namespace CaWorkshop.WebUI.Models
 
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(280)]
         public string Title { get; set; }
 
         public string Colour { get; set; }
