@@ -14,7 +14,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { API_BASE_URL } from './services/data.service';
+import { API_BASE_URL } from './services/ca-workshop-api.service';
 import { environment } from 'src/environments/environment';
 import { TodoComponent } from './todo/todo.component';
 
@@ -36,7 +36,7 @@ import { TodoComponent } from './todo/todo.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'todo', component: TodoComponent },
+      { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
     ]),
     FontAwesomeModule,
     ModalModule.forRoot()

@@ -1,5 +1,8 @@
 using CaWorkshop.Application;
+using CaWorkshop.Application.Common.Interfaces;
 using CaWorkshop.Infrastructure;
+using CleanArchitecture.WebUI.Common;
+using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +25,9 @@ namespace CaWorkshop.WebUI
         {
             services.AddInfrastructure(Configuration);
             services.AddApplication(Configuration);
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddControllersWithViews();
 
@@ -53,6 +59,7 @@ namespace CaWorkshop.WebUI
                 app.UseHsts();
             }
 
+            app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -61,8 +68,10 @@ namespace CaWorkshop.WebUI
 
             }
 
-            app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.DocumentPath = "/api/specification.json";
+            });
 
             app.UseRouting();
 
